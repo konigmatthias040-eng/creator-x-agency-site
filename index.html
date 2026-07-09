@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Creator x Agency — Une idée devient un logiciel</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#101a30;--txt:#eaf1ff;--mut:#a9bcde;--cyan:#46a9ff;--blue:#3a72ff;--purple:#8a6cff;
+  --grad:linear-gradient(120deg,var(--blue),var(--purple));--line2:rgba(150,185,255,.26);--surf:#16223e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{min-height:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;
+  background-image:radial-gradient(900px 600px at 22% 14%,rgba(60,110,230,.22),transparent 60%),radial-gradient(900px 600px at 80% 84%,rgba(130,85,235,.18),transparent 60%)}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+.scene{position:relative;z-index:2;width:100%;max-width:min(1480px,124vh);aspect-ratio:1000/600;margin:auto}
+.links{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.links line{stroke:url(#lg);stroke-width:1;opacity:.18;stroke-linecap:round;stroke-dasharray:2 13;filter:drop-shadow(0 0 4px rgba(100,140,255,.4));animation:flow 30s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-300}}
+
+.orb{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);width:clamp(300px,33vw,430px);z-index:4;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0;
+  background:none;border:none;box-shadow:none;animation:orbfloat 7s ease-in-out infinite}
+.orb::after{display:none}
+.orb::before{content:'';position:absolute;inset:-26% -20%;border-radius:50%;background:radial-gradient(ellipse at 50% 44%,rgba(70,120,255,.32),rgba(138,108,255,.17) 48%,transparent 78%);filter:blur(55px);z-index:-1;pointer-events:none}
+.orb .mk{width:74px;height:74px;border-radius:22px;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:29px;color:#fff;box-shadow:0 0 36px #5a78ff99;margin-bottom:16px}
+.orb .medallion{position:relative;width:clamp(210px,25vw,310px);height:clamp(210px,25vw,310px);margin:0 auto 22px;border-radius:50%}
+.orb .medallion::before{content:'';position:absolute;inset:-18px;border-radius:50%;background:conic-gradient(from 0deg,#46a9ff,#8a6cff,#3a72ff,#5fb0ff,#8a6cff,#46a9ff);filter:blur(17px);opacity:.8;z-index:0;animation:spin 10s linear infinite}
+.orb .medallion::after{display:none}
+.orb .medallion video{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 46%;border:none;background:#0a0f1e;display:block;-webkit-mask-image:radial-gradient(circle,#000 86%,transparent 99%);mask-image:radial-gradient(circle,#000 86%,transparent 99%);box-shadow:0 0 50px -12px rgba(58,114,255,.5)}
+.orb .wmk{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(23px,2.4vw,33px);letter-spacing:.3px;line-height:1.1;color:#fff;margin-bottom:9px;text-shadow:0 0 22px rgba(74,116,255,.65),0 0 46px rgba(138,108,255,.42)}
+.orb .sub{font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--cyan);margin:0 0 15px}
+.bottomline{position:absolute;left:0;right:0;bottom:18px;text-align:center;color:var(--mut);font-size:13px;letter-spacing:.3px;z-index:3;pointer-events:none}
+.orb .tag{font-size:clamp(13px,.95vw,15px);color:#c8d8ff;line-height:1.5;max-width:94%;margin:0 auto}
+.orb .btns{display:flex;flex-direction:column;gap:10px;margin-top:18px;width:100%}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;font-size:clamp(13px,.85vw,15px);font-weight:500;padding:12px 18px;border-radius:99px;cursor:pointer;border:none;color:#fff;transition:.2s}
+.btn.primary{background:var(--grad);box-shadow:0 8px 24px -6px #4a6bffaa}.btn.primary:hover{transform:translateY(-2px)}
+.btn.ghost{background:rgba(255,255,255,.05);border:1px solid var(--line2);color:#dfe8ff}
+
+.isle{position:absolute;transform:translate(-50%,-50%);width:15%;z-index:3;text-decoration:none;color:inherit;cursor:pointer}
+.ball{display:flex;flex-direction:column;align-items:center;text-align:center}
+.isle img{width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:transform .3s ease,filter .3s ease}
+.isle:hover{z-index:20}
+.isle:hover img{transform:translateY(-8px) scale(1.07);filter:drop-shadow(0 26px 44px rgba(30,90,200,.6)) brightness(1.12)}
+.lbl{display:inline-block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(11px,.9vw,14px);margin-top:.5vw;letter-spacing:.2px;text-shadow:0 2px 10px #000c;max-width:170px;line-height:1.22;background:rgba(8,12,24,.45);padding:4px 11px;border-radius:9px}
+.isle.top .ball{flex-direction:column-reverse}
+.isle.top .lbl{margin-top:0;margin-bottom:.5vw}
+.pick{font-size:.72vw;color:var(--cyan);margin-top:.25vw;opacity:0;transform:translateY(-3px);transition:.25s}
+.isle:hover .pick{opacity:1;transform:translateY(0)}
+
+/* FORMULAIRE */
+.fov{position:fixed;inset:0;background:rgba(4,7,14,.74);backdrop-filter:blur(6px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.fov.open{display:flex}
+.fmodal{width:100%;max-width:520px;background:var(--surf);border:1px solid var(--line2);border-radius:20px;padding:26px 26px 22px;max-height:92vh;overflow:auto;box-shadow:0 30px 90px -20px #000;animation:rise .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fmodal .x{float:right;background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1}
+.fmodal h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;margin-bottom:4px}
+.fmodal .lead{color:var(--mut);font-size:13px;margin-bottom:16px}
+.schip{display:inline-block;background:rgba(70,120,255,.16);border:1px solid var(--line2);color:#cfe0ff;font-size:12.5px;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.ff{margin-bottom:13px}
+.ff label{display:block;font-size:12px;color:var(--mut);margin-bottom:5px}
+.ff input,.ff textarea,.ff select{width:100%;background:#111c34;border:1px solid rgba(255,255,255,.12);border-radius:11px;color:var(--txt);font-family:inherit;font-size:14px;padding:11px 13px;outline:none;transition:.15s}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(70,120,255,.18)}
+.ff textarea{min-height:84px;resize:vertical}
+.ff input[type=file]{padding:9px 11px;font-size:12.5px;cursor:pointer}
+.ff input[type=file]::file-selector-button{background:var(--grad);border:none;color:#fff;font-family:inherit;font-size:12.5px;padding:7px 13px;border-radius:99px;margin-right:10px;cursor:pointer}
+.thumbs{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.thumbs img{width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--line2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fsend{width:100%;margin-top:8px;background:var(--grad);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:500;font-size:15px;padding:13px;cursor:pointer;transition:.2s}
+.fsend:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px #4a6bffaa}
+.fok{display:none;text-align:center;padding:14px 0}
+.fok .ic{font-size:40px}.fok h4{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:8px 0 6px}.fok p{color:var(--mut);font-size:13.5px}
+
+@keyframes pulse{0%,100%{box-shadow:0 0 90px -8px #3a72ff66,inset 0 0 60px -18px #8a6cff55}50%{box-shadow:0 0 120px -4px #3a72ff99,inset 0 0 70px -14px #8a6cff77}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes orbfloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 13px))}}
+@media(max-width:820px){
+  .hero{justify-content:flex-start;padding-top:74px}
+  .scene{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;gap:24px;padding:30px 16px;max-width:420px}
+  .links{display:none}
+  .orb,.isle{position:static;transform:none;width:64%}
+  .orb{order:-1;width:80%;padding:26px;animation:none}
+  .orb .mk{font-size:30px}.orb .wmk{font-size:22px}.orb .sub{font-size:11px;letter-spacing:4px}.orb .tag{font-size:13px}.btn{font-size:13px;padding:11px 16px}
+  .lbl{font-size:15px;margin-top:8px}.pick{font-size:12px;opacity:1}
+  .frow{grid-template-columns:1fr}
+}
+
+/* ===== NAV / HÉROS / SECTIONS / FOOTER (ajout 21/06) ===== */
+.sec,footer{scroll-margin-top:72px}
+.cta{color:#fff;background:var(--grad);box-shadow:0 6px 18px -6px #4a6bffaa;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;padding:9px 18px;border-radius:99px;text-decoration:none;display:inline-flex;align-items:center;transition:.2s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px #4a6bffaa}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(16px,4vw,40px);background:linear-gradient(180deg,rgba(16,26,48,.94),rgba(16,26,48,0));border-bottom:1px solid transparent;transition:background .3s,backdrop-filter .3s,border-color .3s}
+.nav.scrolled{background:rgba(16,26,48,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
+.nav .wm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:.3px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:9px}
+.nav .wm i{width:26px;height:26px;border-radius:8px;background:var(--grad);display:grid;place-items:center;font-size:11px;font-style:normal;color:#fff;box-shadow:0 0 16px #5a78ff66}
+.nav .links{position:static;pointer-events:auto;width:auto;height:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav .links a{color:#d3ddf2;text-decoration:none;font-size:14px;font-weight:500;padding:7px 13px;border-radius:99px;transition:.2s}
+.nav .links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:84px 16px 70px}
+
+main{position:relative;z-index:2}
+.sec{max-width:1080px;margin:0 auto;padding:78px clamp(18px,5vw,36px)}
+.sec-h{text-align:center;margin-bottom:38px}
+.sec-h .k{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:10px}
+.sec-h h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,3.4vw,38px);line-height:1.12}
+.sec-h p{color:var(--mut);margin:12px auto 0;font-size:clamp(14px,1.4vw,16px);max-width:640px;line-height:1.55}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surf);border:1px solid var(--line2);border-radius:18px;padding:22px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-5px);border-color:rgba(140,180,255,.4);box-shadow:0 22px 50px -24px #000,0 0 44px -16px #3a72ff55}
+.card .ic{font-size:24px;margin-bottom:11px;display:block}
+.card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin-bottom:7px}
+.card p{color:var(--mut);font-size:13.5px;line-height:1.5}
+.scard{cursor:pointer}
+.scard .go{color:var(--cyan);font-size:13px;font-weight:500;margin-top:11px;display:inline-block;opacity:.85;transition:.2s}
+.scard:hover .go{opacity:1;transform:translateX(2px)}
+.val{text-align:center}
+.step .n{width:40px;height:40px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;margin-bottom:13px;box-shadow:0 0 24px -6px #4a6bffaa}
+
+footer{position:relative;z-index:2;border-top:1px solid var(--line2);margin-top:30px;padding:54px clamp(18px,5vw,36px) 42px;text-align:center;background:linear-gradient(180deg,transparent,rgba(10,16,36,.55))}
+footer .fwm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;color:#fff;margin-bottom:6px}
+footer .slo{color:var(--cyan);font-size:14px;letter-spacing:.4px;margin-bottom:22px}
+footer .ct{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+footer .ct a{color:var(--txt);text-decoration:none;font-size:14.5px;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line2);border-radius:99px;transition:.2s}
+footer .ct a:hover{border-color:var(--cyan);background:rgba(70,120,255,.1)}
+footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
+
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.nav .links{display:none}.sec{padding:54px 18px}}
+@media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+
+<header class="nav" id="nav">
+  <a class="wm" href="#top"><i>CX</i> Creator x Agency</a>
+  <div class="links">
+    <a href="#agence">Agence</a>
+    <a href="#services">Services</a>
+    <a href="#realisations">Réalisations</a>
+    <a href="#process">Méthode</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="cta" onclick="openForm('Projet sur mesure')">Démarrer</button>
+</header>
+
+<section class="hero" id="top">
+<div class="scene">
+  <svg class="links" viewBox="0 0 1000 600" preserveAspectRatio="none">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a72ff"/><stop offset="1" stop-color="#8a6cff"/></linearGradient></defs>
+    <line x1="500" y1="294" x2="260" y2="132"/><line x1="500" y1="294" x2="740" y2="132"/>
+    <line x1="500" y1="294" x2="120" y2="276"/><line x1="500" y1="294" x2="880" y2="276"/>
+    <line x1="500" y1="294" x2="195" y2="486"/><line x1="500" y1="294" x2="805" y2="486"/>
+  </svg>
+
+  <a class="isle" href="#" onclick="openForm('Logiciel sur mesure');return false" style="left:26%;top:20%"><div class="ball"><img src="ilots/logiciel.png" alt=""><span class="lbl">Logiciel sur mesure</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modèle document');return false" style="left:74%;top:20%"><div class="ball"><img src="ilots/document.png" alt=""><span class="lbl">Modèle document</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modding Farming 22/25');return false" style="left:11%;top:46%"><div class="ball"><img src="ilots/farming.png" alt=""><span class="lbl">Modding Farming 22/25</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Enjeux fichiers & logiciels');return false" style="left:89%;top:46%"><div class="ball"><img src="ilots/fichiers.png" alt=""><span class="lbl">Enjeux fichiers &amp; logiciels</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Micro-programme');return false" style="left:19%;top:81%"><div class="ball"><img src="ilots/micro.png" alt=""><span class="lbl">Micro-programme</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modding');return false" style="left:81%;top:81%"><div class="ball"><img src="ilots/modding.png" alt=""><span class="lbl">Modding</span><span class="pick">Choisir →</span></div></a>
+
+  <div class="orb">
+    <div class="medallion"><video src="presentation.mp4" autoplay muted loop playsinline></video></div>
+    <div class="wmk">Creator x Agency</div>
+    <div class="sub">Logiciels · Sites · Sur mesure</div>
+    <p class="tag">Une idée devient un logiciel.<br>Un besoin devient une solution.</p>
+    <div class="btns"><button class="btn primary" onclick="openForm('Projet sur mesure')">Démarrer un projet</button></div>
+  </div>
+</div>
+
+  <div class="bottomline">✨ Cliquez un îlot pour démarrer — ou faites défiler pour découvrir l'agence ↓</div>
+</section>
+
+<main>
+
+  <section class="sec" id="agence">
+    <div class="sec-h">
+      <span class="k">L'agence</span>
+      <h2>Une idée devient un logiciel.</h2>
+      <p>Creator x Agency conçoit des logiciels, des sites et des outils sur mesure pour les entreprises et les particuliers. On remplace les tâches pénibles et le papier par des outils simples qui font gagner du temps. <strong>Moins de papier. Plus de résultats.</strong></p>
+    </div>
+    <div class="grid g3">
+      <div class="card val"><span class="ic">🎯</span><h3>Clair</h3><p>Un interlocuteur unique, un devis lisible, zéro jargon. Vous savez toujours où on en est.</p></div>
+      <div class="card val"><span class="ic">🛡️</span><h3>Fiable</h3><p>Des outils testés, livrés en état de marche, avec un suivi après la livraison.</p></div>
+      <div class="card val"><span class="ic">📈</span><h3>Rentable</h3><p>On automatise ce qui vous coûte du temps : l'outil se rembourse vite.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <div class="sec-h">
+      <span class="k">Services</span>
+      <h2>Ce qu'on fait</h2>
+      <p>Cliquez un service pour nous envoyer votre besoin — le formulaire s'adapte à votre projet.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card scard" onclick="openForm('Logiciel sur mesure')"><span class="ic">🧩</span><h3>Logiciel sur mesure</h3><p>Applications et outils métier (Windows, web, mobile) taillés pour votre activité.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Modding Farming 22/25')"><span class="ic">🚜</span><h3>Modding Farming 22/25</h3><p>Création, réparation et réglage de mods Farming Simulator 22 & 25.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Modèle document')"><span class="ic">📄</span><h3>Modèle de document</h3><p>Devis, contrats, CV, fiches : des modèles propres et réutilisables.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Micro-programme')"><span class="ic">⚙️</span><h3>Micro-programme</h3><p>Petits scripts et automatisations qui font le travail répétitif à votre place.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Enjeux fichiers & logiciels')"><span class="ic">🗂️</span><h3>Fichiers & logiciels</h3><p>Récupération, rangement et optimisation de vos fichiers et de vos outils.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Simple vérification')"><span class="ic">🔎</span><h3>Vérification</h3><p>Un doute, un bug, un test ? On vérifie et on corrige.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Modding')"><span class="ic">🎮</span><h3>Modding & jeux</h3><p>Mods, maps et fichiers de jeu au-delà de Farming Simulator.</p><span class="go">Demander →</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="realisations">
+    <div class="sec-h">
+      <span class="k">Réalisations</span>
+      <h2>Des projets déjà livrés</h2>
+      <p>Quelques exemples concrets de ce qu'on a construit.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);max-width:720px;margin-inline:auto">
+      <div class="card"><span class="ic">⏱️</span><h3>Pointage &amp; heures</h3><p>Outil web complet pour une PME du paysage : badge mobile des salariés, calcul des heures, validation et exports compta. En production, utilisé chaque jour.</p></div>
+      <div class="card"><span class="ic">🚜</span><h3>Support &amp; modding FS</h3><p>Réparation, réglage et création de mods Farming Simulator 22/25, avec prise en charge par ticket et livraison après validation.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="sec-h">
+      <span class="k">Méthode</span>
+      <h2>Comment ça se passe</h2>
+      <p>Simple, cadré, sans mauvaise surprise.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card step"><div class="n">1</div><h3>Votre besoin</h3><p>Vous décrivez votre projet via le formulaire ou un îlot. Gratuit et sans engagement.</p></div>
+      <div class="card step"><div class="n">2</div><h3>Devis gratuit</h3><p>On vous envoie un devis clair sous quelques jours, avec le détail des prestations.</p></div>
+      <div class="card step"><div class="n">3</div><h3>Acompte</h3><p>Un acompte valide le projet et lance le travail. On échange en cours de route si besoin.</p></div>
+      <div class="card step"><div class="n">4</div><h3>Livraison</h3><p>On livre l'outil qui marche — et on reste disponible après la livraison.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="fwm">Creator x Agency</div>
+  <div class="slo">Moins de papier. Plus de résultats.</div>
+  <div class="ct">
+    <a href="mailto:creatorxagency324@gmail.com">✉ creatorxagency324@gmail.com</a>
+    <a href="tel:+33677873324">☎ 06 77 87 33 24</a>
+    <button class="cta" onclick="openForm('Projet sur mesure')">Démarrer un projet</button>
+  </div>
+  <div class="legal">Creator x Agency — micro-entreprise · SIRET : à compléter · Devis gratuit sur demande.<br>© 2026 Creator x Agency. Tous droits réservés.</div>
+</footer>
+
+<!-- FORMULAIRE -->
+<div class="fov" id="fov">
+  <div class="fmodal">
+    <button class="x" onclick="closeForm()">&times;</button>
+    <div id="fform">
+      <h3>Parlez-nous de votre projet</h3>
+      <p class="lead" id="f_lead">Remplissez ce formulaire, on vous recontacte rapidement.</p>
+      <span class="schip" id="f_service">Service</span>
+      <form id="realform" action="https://formsubmit.co/creatorxagency324@gmail.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" id="h_subject" value="Nouvelle demande">
+      <input type="hidden" name="_next" id="h_next" value="">
+      <input type="hidden" name="Référence" id="h_ref" value="">
+      <input type="hidden" name="Service" id="h_service" value="">
+      <div class="frow">
+        <div class="ff"><label>Nom / société *</label><input id="f_nom" name="Nom / société" placeholder="Votre nom"></div>
+        <div class="ff"><label>Email *</label><input id="f_email" name="Email" type="email" placeholder="vous@email.com"></div>
+      </div>
+      <div class="ff"><label>Téléphone</label><input id="f_tel" name="Téléphone" placeholder="06 …"></div>
+      <div class="ff" id="f_extrawrap" style="display:none"><label id="f_extralabel"></label><input id="f_extra"></div>
+      <div class="ff"><label>Décrivez votre besoin *</label><textarea id="f_desc" name="Besoin" placeholder="Ce que vous voulez créer, le contexte, vos attentes…"></textarea></div>
+      <div class="frow">
+        <div class="ff"><label>Budget estimé</label><select id="f_budget" name="Budget estimé"><option>À définir</option><option>moins de 500 €</option><option>500 – 1 500 €</option><option>1 500 – 5 000 €</option><option>plus de 5 000 €</option></select></div>
+        <div class="ff"><label>Délai souhaité</label><select id="f_delai" name="Délai souhaité"><option>Flexible</option><option>Dès que possible</option><option>moins d'1 mois</option><option>1 à 3 mois</option></select></div>
+      </div>
+      <div class="ff"><label>📷 Photos du sujet — mod, capture d'écran, machine… (3 max, facultatif)</label>
+        <input id="f_photos" type="file" name="attachment" accept="image/*" multiple>
+        <div id="f_thumbs" class="thumbs"></div>
+      </div>
+      <textarea name="Brief IA" id="h_brief" style="display:none"></textarea>
+      <button class="fsend" type="button" onclick="sendForm()">Envoyer ma demande</button>
+      </form>
+    </div>
+    <div class="fok" id="fok">
+      <div class="ic">✅</div>
+      <h4>Demande envoyée !</h4>
+      <p>Merci, votre demande a bien été transmise.<br>On vous recontacte très vite.</p>
+      <p id="fok_ref" style="color:var(--cyan);font-size:13px;margin-top:8px"></p>
+      <button class="fsend" style="max-width:200px;margin:16px auto 0" onclick="closeForm()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Envoi via FormSubmit (rapport structure + photos jointes) -> creatorxagency324@gmail.com
+   (ancien envoi Web3Forms, cle publique be7d070b-0e4a-4791-811c-76f3533d7ba7, garde en secours) */
+const SERVICES_CFG={
+ 'Logiciel sur mesure':{intro:"Décrivez l'outil ou l'application dont vous avez besoin.",ql:"Plateforme visée",qp:"Windows, web, mobile…"},
+ 'Simple vérification':{intro:"Dites-nous ce qu'il faut vérifier ou corriger.",ql:"Type de vérification",qp:"audit, bug, test de fonctionnement…"},
+ 'Modèle document':{intro:"Quel document vous faut-il ?",ql:"Type de document",qp:"CV, devis, contrat, fiche, PDF…"},
+ 'Modding Farming 22/25':{intro:"Quel jeu et quel mod ? Dites ce qu'il faut faire.",ql:"Jeu & mod concerné",qp:"FS25, nom du mod…"},
+ 'Enjeux fichiers & logiciels':{intro:"Quel souci de fichiers ou de logiciel ?",ql:"Contexte",qp:"récupération, rangement, optimisation…"},
+ 'Micro-programme':{intro:"Quelle tâche voulez-vous automatiser ?",ql:"Tâche / outil souhaité",qp:"script, automatisation, petit outil…"},
+ 'Modding':{intro:"Quel jeu, quel mod ou quelle map ?",ql:"Jeu & objectif",qp:"FS, maps, fichiers XML…"}
+};
+function openForm(service){
+  document.getElementById('f_service').textContent='Service : '+service;
+  const cfg=SERVICES_CFG[service]||{intro:"Parlez-nous de votre projet, on s'occupe du reste.",ql:'',qp:''};
+  document.getElementById('f_lead').textContent=cfg.intro;
+  const wrap=document.getElementById('f_extrawrap'),fe=document.getElementById('f_extra');
+  if(cfg.ql){document.getElementById('f_extralabel').textContent=cfg.ql;fe.placeholder=cfg.qp||'';fe.value='';fe.dataset.label=cfg.ql;wrap.style.display='';}
+  else{wrap.style.display='none';fe.value='';fe.dataset.label='';}
+  document.getElementById('fform').style.display='block';
+  document.getElementById('fok').style.display='none';
+  document.getElementById('fov').classList.add('open');
+}
+function closeForm(){document.getElementById('fov').classList.remove('open');}
+function pad2(n){return (n<10?'0':'')+n}
+function sendForm(){
+  const s=document.getElementById('f_service').textContent.replace('Service : ','');
+  const nom=f_nom.value.trim(),email=f_email.value.trim(),tel=f_tel.value.trim(),desc=f_desc.value.trim();
+  const budget=f_budget.value,delai=f_delai.value;
+  if(!nom||!email){alert('Merci d\'indiquer au moins votre nom et votre email.');return;}
+  if(!desc){alert('Merci de décrire votre besoin.');return;}
+  const btn=document.querySelector('#fform .fsend'); btn.textContent='Envoi…'; btn.disabled=true;
+  const now=new Date();
+  const ref='DEM-'+now.getFullYear()+pad2(now.getMonth()+1)+pad2(now.getDate())+'-'+pad2(now.getHours())+pad2(now.getMinutes());
+  const ex=document.getElementById('f_extra');
+  const exLabel=(ex&&ex.dataset.label)?ex.dataset.label:'Précision';
+  const exVal=(ex&&ex.value.trim())?ex.value.trim():'';
+  if(exVal){ex.setAttribute('name',exLabel)}else if(ex){ex.removeAttribute('name')}
+  document.getElementById('h_subject').value='🔔 '+ref+' · '+s+' — '+nom;
+  document.getElementById('h_next').value=location.origin+location.pathname+'?sent=1&ref='+encodeURIComponent(ref);
+  document.getElementById('h_ref').value=ref;
+  document.getElementById('h_service').value=s;
+  document.getElementById('h_brief').value=
+    '=== BRIEF POUR L\'IA — a coller tel quel dans Claude ===\n'
+    +'Référence : '+ref+'\n'
+    +'Prestation : '+s+(exVal?('\n'+exLabel+' : '+exVal):'')+'\n'
+    +'Client : '+nom+' · '+email+(tel?(' · '+tel):'')+'\n'
+    +'Budget : '+budget+' · Délai : '+delai+'\n\n'
+    +'DEMANDE DU CLIENT :\n'+desc+'\n\n'
+    +'CONSIGNES : analyser la demande, lister les fichiers/mods/éléments concernés (photos en pièces jointes de ce mail), proposer un plan d\'action étape par étape, estimer le temps de travail et un prix indicatif, signaler les risques AVANT toute modification.';
+  document.getElementById('realform').submit();
+}
+const MAX_PHOTOS=3;
+function loadImg(f){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(f)})}
+async function onPhotos(){
+  const inp=document.getElementById('f_photos');
+  const th=document.getElementById('f_thumbs'); th.innerHTML='';
+  if(inp.files.length>MAX_PHOTOS)alert(MAX_PHOTOS+' photos maximum — seules les '+MAX_PHOTOS+' premières sont gardées.');
+  const files=[...inp.files].slice(0,MAX_PHOTOS);
+  const dt=new DataTransfer();
+  for(const f of files){
+    try{
+      const img=await loadImg(f);
+      const sc=Math.min(1,1600/Math.max(img.width,img.height));
+      const cv=document.createElement('canvas');
+      cv.width=Math.max(1,Math.round(img.width*sc));cv.height=Math.max(1,Math.round(img.height*sc));
+      cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+      const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',.82));
+      const nf=new File([blob],(f.name.replace(/\.[^.]+$/,'')||'photo')+'.jpg',{type:'image/jpeg'});
+      dt.items.add((nf&&nf.size<f.size)?nf:f);
+      const t=document.createElement('img');t.src=cv.toDataURL('image/jpeg',.55);th.appendChild(t);
+    }catch(e){ if(f.size<4194304){dt.items.add(f)} }
+  }
+  inp.files=dt.files;
+}
+document.getElementById('f_photos').addEventListener('change',onPhotos);
+(function(){
+  const q=new URLSearchParams(location.search);
+  if(q.get('sent')==='1'){
+    const ref=q.get('ref')||'';
+    document.getElementById('fform').style.display='none';
+    document.getElementById('fok').style.display='block';
+    if(ref){document.getElementById('fok_ref').textContent='Référence de votre demande : '+ref;}
+    document.getElementById('fov').classList.add('open');
+    history.replaceState({},'',location.pathname);
+  }
+})();
+document.getElementById('fov').addEventListener('click',e=>{if(e.target.id==='fov')closeForm();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeForm();});
+const navEl=document.getElementById('nav');
+addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',scrollY>40);},{passive:true});
+
+document.querySelectorAll('.ball').forEach((b,i)=>{
+  const dur=(9+(i%4))+Math.random()*1.3,del=-Math.random()*8,amp=7+Math.random()*5;
+  b.animate([{transform:'translateY(0)'},{transform:'translateY(-'+amp.toFixed(0)+'px)'},{transform:'translateY(0)'}],{duration:dur*1000,iterations:Infinity,easing:'ease-in-out',delay:del*1000});
+});
+const c=document.getElementById('stars'),x=c.getContext('2d');let w,h,P;
+function rs(){w=c.width=innerWidth;h=c.height=innerHeight;const n=innerWidth<700?45:95;
+  P=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.6+.3,s:Math.random()*.3+.06,t:Math.random()*6.3,ts:Math.random()*.03+.008}))}
+rs();addEventListener('resize',rs);
+(function loop(){x.clearRect(0,0,w,h);for(const p of P){p.y-=p.s;p.t+=p.ts;if(p.y<-2){p.y=h;p.x=Math.random()*w}
+  const a=(Math.sin(p.t)*.5+.5)*.8;x.beginPath();x.arc(p.x,p.y,p.r,0,6.3);x.shadowBlur=6;x.shadowColor='rgba(120,170,255,.8)';x.fillStyle='rgba(160,200,255,'+a.toFixed(3)+')';x.fill()}
+  requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>
