@@ -140,6 +140,28 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:820px){.nav .links{display:none}.sec{padding:54px 18px}}
 @media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
+
+/* Réalisations — avant / après */
+.realiz{max-width:940px;margin:0 auto 24px;background:var(--surf);border:1px solid var(--line2);border-radius:18px;padding:16px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ba figure{position:relative;margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line2);background:#0e1830}
+.ba img{display:block;width:100%;height:230px;object-fit:cover}
+.ba figcaption{font-size:12.5px;color:var(--mut);padding:8px 12px;text-align:center}
+.ba-tag{position:absolute;top:10px;left:10px;z-index:2;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:99px;color:#fff}
+.ba-tag.av{background:rgba(16,24,44,.88);border:1px solid var(--line2)}
+.ba-tag.ap{background:var(--grad)}
+.ba figure.ph .phbox{height:230px;display:grid;place-items:center;color:var(--mut);font-size:14px;background:repeating-linear-gradient(45deg,#0e1830,#0e1830 12px,#132043 12px,#132043 24px)}
+.realiz-txt{padding:14px 8px 4px}
+.realiz-txt h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;margin-bottom:6px}
+.realiz-txt p{color:var(--mut);font-size:14px;line-height:1.55}
+.chip2{display:inline-block;background:rgba(70,120,255,.16);border:1px solid var(--line2);color:#cfe0ff;font-size:12px;padding:3px 10px;border-radius:99px;margin-left:4px}
+.realiz-note{max-width:940px;margin:6px auto 0;text-align:center;color:var(--mut);font-size:13.5px;line-height:1.6}
+@media(max-width:560px){.ba{grid-template-columns:1fr}.ba img,.ba figure.ph .phbox{height:200px}}
+
+/* Médaillon central : slogan de marque */
+.orb .medallion .motto{position:absolute;inset:0;z-index:1;border-radius:50%;display:grid;place-content:center;text-align:center;gap:8px;padding:0 13%;background:radial-gradient(circle at 50% 42%,#16264a,#0a0f1e 76%);box-shadow:0 0 50px -12px rgba(58,114,255,.5);-webkit-mask-image:radial-gradient(circle,#000 87%,transparent 99%);mask-image:radial-gradient(circle,#000 87%,transparent 99%);font-family:'Space Grotesk',sans-serif}
+.orb .medallion .motto span{font-size:clamp(21px,2.4vw,30px);font-weight:700;color:#fff;line-height:1.12;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.orb .medallion .motto b{font-size:clamp(23px,2.7vw,34px);font-weight:700;line-height:1.12;background:linear-gradient(120deg,#ffd479,#e8b84b);-webkit-background-clip:text;background-clip:text;color:transparent}
 </style>
 </head>
 <body>
@@ -161,20 +183,22 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 <div class="scene">
   <svg class="links" viewBox="0 0 1000 600" preserveAspectRatio="none">
     <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a72ff"/><stop offset="1" stop-color="#8a6cff"/></linearGradient></defs>
-    <line x1="500" y1="294" x2="260" y2="132"/><line x1="500" y1="294" x2="740" y2="132"/>
-    <line x1="500" y1="294" x2="120" y2="276"/><line x1="500" y1="294" x2="880" y2="276"/>
-    <line x1="500" y1="294" x2="195" y2="486"/><line x1="500" y1="294" x2="805" y2="486"/>
+    <line x1="500" y1="294" x2="240" y2="120"/><line x1="500" y1="294" x2="110" y2="300"/>
+    <line x1="500" y1="294" x2="220" y2="480"/><line x1="500" y1="294" x2="840" y2="180"/>
+    <line x1="500" y1="294" x2="840" y2="432"/>
   </svg>
 
-  <a class="isle" href="#" onclick="openForm('Logiciel sur mesure');return false" style="left:26%;top:20%"><div class="ball"><img src="ilots/logiciel.png" alt=""><span class="lbl">Logiciel sur mesure</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Modèle document');return false" style="left:74%;top:20%"><div class="ball"><img src="ilots/document.png" alt=""><span class="lbl">Modèle document</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Modding Farming 22/25');return false" style="left:11%;top:46%"><div class="ball"><img src="ilots/farming.png" alt=""><span class="lbl">Modding Farming 22/25</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Enjeux fichiers & logiciels');return false" style="left:89%;top:46%"><div class="ball"><img src="ilots/fichiers.png" alt=""><span class="lbl">Enjeux fichiers &amp; logiciels</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Micro-programme');return false" style="left:19%;top:81%"><div class="ball"><img src="ilots/micro.png" alt=""><span class="lbl">Micro-programme</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Modding');return false" style="left:81%;top:81%"><div class="ball"><img src="ilots/modding.png" alt=""><span class="lbl">Modding</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Logiciel sur mesure');return false" style="left:24%;top:20%"><div class="ball"><img src="ilots/logiciel.png" alt=""><span class="lbl">Logiciel sur mesure</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modding Farming 22/25');return false" style="left:11%;top:50%"><div class="ball"><img src="ilots/farming.png" alt=""><span class="lbl">Modding Farming 22/25</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Micro-programme');return false" style="left:22%;top:80%"><div class="ball"><img src="ilots/micro.png" alt=""><span class="lbl">Micro-programme</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Enjeux fichiers & logiciels');return false" style="left:84%;top:30%"><div class="ball"><img src="ilots/fichiers.png" alt=""><span class="lbl">Enjeux fichiers &amp; logiciels</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modding');return false" style="left:84%;top:72%"><div class="ball"><img src="ilots/modding.png" alt=""><span class="lbl">Modding</span><span class="pick">Choisir →</span></div></a>
 
   <div class="orb">
-    <div class="medallion"><video src="presentation.mp4" autoplay muted loop playsinline></video></div>
+    <div class="medallion"><div class="motto">
+      <span>On ne copie pas.</span>
+      <b>On crée.</b>
+    </div></div>
     <div class="wmk">Creator x Agency</div>
     <div class="sub">Logiciels · Sites · Sur mesure</div>
     <p class="tag">Une idée devient un logiciel.<br>Un besoin devient une solution.</p>
@@ -190,13 +214,13 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
   <section class="sec" id="agence">
     <div class="sec-h">
       <span class="k">L'agence</span>
-      <h2>Une idée devient un logiciel.</h2>
-      <p>Creator x Agency conçoit des logiciels, des sites et des outils sur mesure pour les entreprises et les particuliers. On remplace les tâches pénibles et le papier par des outils simples qui font gagner du temps. <strong>Moins de papier. Plus de résultats.</strong></p>
+      <h2>Derrière Creator x Agency, une vraie personne.</h2>
+      <p>Moi, c'est <strong>Matthias König</strong>. Passionné de jeux et de création, je <strong>répare, modifie et crée des mods Farming Simulator</strong>, et je développe de petits <strong>outils sur mesure</strong> (logiciels, sites vitrines, scripts). Un seul interlocuteur, un devis clair, un travail soigné et <strong>testé en jeu</strong> — ton fichier d'origine est toujours conservé, et je reste dispo après la livraison.</p>
     </div>
     <div class="grid g3">
-      <div class="card val"><span class="ic">🎯</span><h3>Clair</h3><p>Un interlocuteur unique, un devis lisible, zéro jargon. Vous savez toujours où on en est.</p></div>
-      <div class="card val"><span class="ic">🛡️</span><h3>Fiable</h3><p>Des outils testés, livrés en état de marche, avec un suivi après la livraison.</p></div>
-      <div class="card val"><span class="ic">📈</span><h3>Rentable</h3><p>On automatise ce qui vous coûte du temps : l'outil se rembourse vite.</p></div>
+      <div class="card val"><span class="ic">🎯</span><h3>Clair &amp; direct</h3><p>Un interlocuteur unique, un devis lisible, zéro jargon. Tu sais toujours où on en est.</p></div>
+      <div class="card val"><span class="ic">🎮</span><h3>Testé en jeu</h3><p>Chaque mod est vérifié en jeu avant livraison. Ton fichier d'origine reste intact — rien n'est cassé.</p></div>
+      <div class="card val"><span class="ic">🤝</span><h3>SAV inclus</h3><p>Un bug ou un réglage après la livraison ? Je corrige. Tu gardes un contact direct, sans prise de tête.</p></div>
     </div>
   </section>
 
@@ -209,10 +233,8 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
     <div class="grid g4">
       <div class="card scard" onclick="openForm('Logiciel sur mesure')"><span class="ic">🧩</span><h3>Logiciel sur mesure</h3><p>Applications et outils métier (Windows, web, mobile) taillés pour votre activité.</p><span class="go">Demander →</span></div>
       <div class="card scard" onclick="openForm('Modding Farming 22/25')"><span class="ic">🚜</span><h3>Modding Farming 22/25</h3><p>Création, réparation et réglage de mods Farming Simulator 22 & 25.</p><span class="go">Demander →</span></div>
-      <div class="card scard" onclick="openForm('Modèle document')"><span class="ic">📄</span><h3>Modèle de document</h3><p>Devis, contrats, CV, fiches : des modèles propres et réutilisables.</p><span class="go">Demander →</span></div>
       <div class="card scard" onclick="openForm('Micro-programme')"><span class="ic">⚙️</span><h3>Micro-programme</h3><p>Petits scripts et automatisations qui font le travail répétitif à votre place.</p><span class="go">Demander →</span></div>
       <div class="card scard" onclick="openForm('Enjeux fichiers & logiciels')"><span class="ic">🗂️</span><h3>Fichiers & logiciels</h3><p>Récupération, rangement et optimisation de vos fichiers et de vos outils.</p><span class="go">Demander →</span></div>
-      <div class="card scard" onclick="openForm('Simple vérification')"><span class="ic">🔎</span><h3>Vérification</h3><p>Un doute, un bug, un test ? On vérifie et on corrige.</p><span class="go">Demander →</span></div>
       <div class="card scard" onclick="openForm('Modding')"><span class="ic">🎮</span><h3>Modding & jeux</h3><p>Mods, maps et fichiers de jeu au-delà de Farming Simulator.</p><span class="go">Demander →</span></div>
     </div>
   </section>
@@ -220,13 +242,44 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
   <section class="sec" id="realisations">
     <div class="sec-h">
       <span class="k">Réalisations</span>
-      <h2>Des projets déjà livrés</h2>
-      <p>Quelques exemples concrets de ce qu'on a construit.</p>
+      <h2>Mes mods, en jeu</h2>
+      <p>Des créations réellement livrées et testées en jeu (le tracteur IH 844 montre un vrai avant/après). Le fichier d'origine est toujours conservé intact.</p>
     </div>
-    <div class="grid" style="grid-template-columns:repeat(2,1fr);max-width:720px;margin-inline:auto">
-      <div class="card"><span class="ic">⏱️</span><h3>Pointage &amp; heures</h3><p>Outil web complet pour une PME du paysage : badge mobile des salariés, calcul des heures, validation et exports compta. En production, utilisé chaque jour.</p></div>
-      <div class="card"><span class="ic">🚜</span><h3>Support &amp; modding FS</h3><p>Réparation, réglage et création de mods Farming Simulator 22/25, avec prise en charge par ticket et livraison après validation.</p></div>
+
+    <div class="realiz">
+      <div class="ba">
+        <figure><span class="ba-tag av">Avant</span><img src="realisations/ih844_avant.webp" alt="Tracteur IH 844 sans fenêtre arrière" loading="lazy"><figcaption>Sans fenêtre arrière</figcaption></figure>
+        <figure><span class="ba-tag ap">Après</span><img src="realisations/ih844_apres.webp" alt="Tracteur IH 844 avec fenêtre arrière" loading="lazy"><figcaption>Fenêtre arrière ajoutée — option au magasin</figcaption></figure>
+      </div>
+      <div class="realiz-txt">
+        <h3>🚜 Tracteur IH 644 / 743 / 844-SB — fenêtre arrière</h3>
+        <p>Ajout d'une option « fenêtre arrière AVEC / SANS » directement dans le magasin, sans toucher au reste de la cabine. Ouverture, salissure et lavage testés en jeu.<span class="chip2">Farming Simulator 25</span></p>
+      </div>
     </div>
+
+    <div class="realiz">
+      <div class="ba">
+        <figure><span class="ba-tag av">14 000 L</span><img src="realisations/benne_14000.webp" alt="Benne Alein configuration 14 000 litres" loading="lazy"><figcaption>Config ridelles 14 000 L</figcaption></figure>
+        <figure><span class="ba-tag ap">20 000 L</span><img src="realisations/benne_20000.webp" alt="Benne Alein configuration 20 000 litres" loading="lazy"><figcaption>Config ridelles 20 000 L</figcaption></figure>
+      </div>
+      <div class="realiz-txt">
+        <h3>🚛 Benne « Alein » — conversion FS19 → FS25</h3>
+        <p>Migration complète vers Farming Simulator 25 : format, matériaux, XML véhicule et configurations de ridelles (14 000 / 16 000 / 20 000 L), tests en jeu.<span class="chip2">Livré &amp; payé</span></p>
+      </div>
+    </div>
+
+    <div class="realiz">
+      <div class="ba">
+        <figure><span class="ba-tag av">Au magasin</span><img src="realisations/rollant_magasin.webp" alt="CLAAS Rollant 250 au magasin" loading="lazy"><figcaption>Presse configurée au magasin</figcaption></figure>
+        <figure><span class="ba-tag ap">En action</span><img src="realisations/rollant_action.webp" alt="CLAAS Rollant 250 en action au champ" loading="lazy"><figcaption>En action — pressage au champ</figcaption></figure>
+      </div>
+      <div class="realiz-txt">
+        <h3>🚜 Presse CLAAS Rollant 250 — balles sur mesure</h3>
+        <p>Reconfiguration de la presse (diamètre de balle, capacité), mise à jour de la fiche magasin, tests paille / foin / herbe.<span class="chip2">Livré &amp; payé</span></p>
+      </div>
+    </div>
+
+    <p class="realiz-note">Et aussi : <strong>König Heures</strong> — un outil web de pointage &amp; suivi des heures, en production dans une PME et utilisé tous les jours. La preuve que je fais aussi du logiciel sur mesure.</p>
   </section>
 
   <section class="sec" id="process">
@@ -279,7 +332,7 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
       <div class="ff" id="f_extrawrap" style="display:none"><label id="f_extralabel"></label><input id="f_extra"></div>
       <div class="ff"><label>Décrivez votre besoin *</label><textarea id="f_desc" name="Besoin" placeholder="Ce que vous voulez créer, le contexte, vos attentes…"></textarea></div>
       <div class="frow">
-        <div class="ff"><label>Budget estimé</label><select id="f_budget" name="Budget estimé"><option>À définir</option><option>moins de 500 €</option><option>500 – 1 500 €</option><option>1 500 – 5 000 €</option><option>plus de 5 000 €</option></select></div>
+        <div class="ff"><label>Budget estimé</label><select id="f_budget" name="Budget estimé"><option>À définir</option><option>moins de 30 €</option><option>30 – 80 €</option><option>80 – 200 €</option><option>plus de 200 €</option></select></div>
         <div class="ff"><label>Délai souhaité</label><select id="f_delai" name="Délai souhaité"><option>Flexible</option><option>Dès que possible</option><option>moins d'1 mois</option><option>1 à 3 mois</option></select></div>
       </div>
       <div class="ff"><label>📷 Photos du sujet — mod, capture d'écran, machine… (3 max, facultatif)</label>
@@ -305,8 +358,6 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
    (ancien envoi Web3Forms, cle publique be7d070b-0e4a-4791-811c-76f3533d7ba7, garde en secours) */
 const SERVICES_CFG={
  'Logiciel sur mesure':{intro:"Décrivez l'outil ou l'application dont vous avez besoin.",ql:"Plateforme visée",qp:"Windows, web, mobile…"},
- 'Simple vérification':{intro:"Dites-nous ce qu'il faut vérifier ou corriger.",ql:"Type de vérification",qp:"audit, bug, test de fonctionnement…"},
- 'Modèle document':{intro:"Quel document vous faut-il ?",ql:"Type de document",qp:"CV, devis, contrat, fiche, PDF…"},
  'Modding Farming 22/25':{intro:"Quel jeu et quel mod ? Dites ce qu'il faut faire.",ql:"Jeu & mod concerné",qp:"FS25, nom du mod…"},
  'Enjeux fichiers & logiciels':{intro:"Quel souci de fichiers ou de logiciel ?",ql:"Contexte",qp:"récupération, rangement, optimisation…"},
  'Micro-programme':{intro:"Quelle tâche voulez-vous automatiser ?",ql:"Tâche / outil souhaité",qp:"script, automatisation, petit outil…"},
@@ -325,7 +376,7 @@ function openForm(service){
 }
 function closeForm(){document.getElementById('fov').classList.remove('open');}
 function pad2(n){return (n<10?'0':'')+n}
-function sendForm(){
+async function sendForm(){
   const s=document.getElementById('f_service').textContent.replace('Service : ','');
   const nom=f_nom.value.trim(),email=f_email.value.trim(),tel=f_tel.value.trim(),desc=f_desc.value.trim();
   const budget=f_budget.value,delai=f_delai.value;
@@ -350,6 +401,20 @@ function sendForm(){
     +'Budget : '+budget+' · Délai : '+delai+'\n\n'
     +'DEMANDE DU CLIENT :\n'+desc+'\n\n'
     +'CONSIGNES : analyser la demande, lister les fichiers/mods/éléments concernés (photos en pièces jointes de ce mail), proposer un plan d\'action étape par étape, estimer le temps de travail et un prix indicatif, signaler les risques AVANT toute modification.';
+  /* Envoi ALSO vers VOLTA (Firebase) — apparaît dans la boîte de réception de l'appli.
+     Si Firebase échoue, l'email FormSubmit part quand même. */
+  try{
+    const FB_KEY="AIzaSyD0NZVCN6bMVXtm37H8fDnlg7YK3TQW6Q8";
+    const sv=v=>({stringValue:String(v||'')});
+    await fetch("https://firestore.googleapis.com/v1/projects/volta-gestion/databases/(default)/documents/demandes_site?key="+FB_KEY,{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({fields:{
+        ref:sv(ref),service:sv(s),nom:sv(nom),email:sv(email),tel:sv(tel),
+        besoin:sv(desc),budget:sv(budget),delai:sv(delai),precision:sv(exVal),
+        date:sv(now.toISOString()),statut:sv('nouveau')
+      }})
+    });
+  }catch(e){/* email de secours conservé */}
   document.getElementById('realform').submit();
 }
 const MAX_PHOTOS=3;
