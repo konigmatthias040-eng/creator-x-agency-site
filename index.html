@@ -162,6 +162,19 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 .orb .medallion .motto{position:absolute;inset:0;z-index:1;border-radius:50%;display:grid;place-content:center;text-align:center;gap:8px;padding:0 13%;background:radial-gradient(circle at 50% 42%,#16264a,#0a0f1e 76%);box-shadow:0 0 50px -12px rgba(58,114,255,.5);-webkit-mask-image:radial-gradient(circle,#000 87%,transparent 99%);mask-image:radial-gradient(circle,#000 87%,transparent 99%);font-family:'Space Grotesk',sans-serif}
 .orb .medallion .motto span{font-size:clamp(21px,2.4vw,30px);font-weight:700;color:#fff;line-height:1.12;text-shadow:0 2px 18px rgba(0,0,0,.5)}
 .orb .medallion .motto b{font-size:clamp(23px,2.7vw,34px);font-weight:700;line-height:1.12;background:linear-gradient(120deg,#ffd479,#e8b84b);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Avis clients */
+.avis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;max-width:1000px;margin:0 auto}
+.avis-card{background:var(--surf);border:1px solid var(--line2);border-radius:18px;padding:20px;transition:transform .25s,border-color .25s}
+.avis-card:hover{transform:translateY(-4px);border-color:rgba(140,180,255,.4)}
+.avis-top{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+.avis-ava{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#fff;overflow:hidden}
+.avis-ava img{width:100%;height:100%;object-fit:cover}
+.avis-nom{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
+.avis-stars{color:#ffce54;font-size:13px;letter-spacing:2px}
+.avis-txt{color:var(--txt);font-size:14px;line-height:1.55;margin-bottom:6px}
+.avis-media{width:100%;border-radius:12px;border:1px solid var(--line2);margin-top:8px;display:block;max-height:280px;object-fit:cover}
+.avis-empty{grid-column:1/-1;text-align:center;color:var(--mut);font-size:14.5px;line-height:1.75;padding:28px;border:1px dashed var(--line2);border-radius:16px}
 </style>
 </head>
 <body>
@@ -174,6 +187,7 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
     <a href="#services">Services</a>
     <a href="#realisations">Réalisations</a>
     <a href="#process">Méthode</a>
+    <a href="#avis">Avis</a>
     <a href="#contact">Contact</a>
   </div>
   <button class="cta" onclick="openForm('Projet sur mesure')">Démarrer</button>
@@ -295,6 +309,18 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
     </div>
   </section>
 
+  <section class="sec" id="avis">
+    <div class="sec-h">
+      <span class="k">Avis clients</span>
+      <h2>Ce qu'ils en disent</h2>
+      <p>Les retours de mes clients — avec leurs photos ou vidéos de mods. Un avis à laisser ? C'est par ici.</p>
+    </div>
+    <div class="avis-grid" id="avisList"></div>
+    <div style="text-align:center;margin-top:28px">
+      <button class="cta" onclick="openForm('Avis client')">✍️ Laisser un avis</button>
+    </div>
+  </section>
+
 </main>
 
 <footer id="contact">
@@ -359,8 +385,25 @@ const SERVICES_CFG={
  'Modding & jeux':{intro:"Quel jeu et quel mod ? Dites ce qu'il faut faire.",ql:"Jeu & mod concerné",qp:"Farming Simulator 25, nom du mod, map…"},
  'Logiciel sur mesure':{intro:"Décrivez l'outil, le site ou l'application dont vous avez besoin.",ql:"Type de projet",qp:"appli Windows, site, web…"},
  'Enjeux fichiers & logiciels':{intro:"Quel souci de fichiers ou de logiciel ?",ql:"Contexte",qp:"récupération, rangement, optimisation…"},
- 'Micro-programme':{intro:"Quelle tâche voulez-vous automatiser ?",ql:"Tâche / outil souhaité",qp:"script, automatisation, petit outil…"}
+ 'Micro-programme':{intro:"Quelle tâche voulez-vous automatiser ?",ql:"Tâche / outil souhaité",qp:"script, automatisation, petit outil…"},
+ 'Avis client':{intro:"Merci ! Note-moi, laisse un commentaire, et ajoute une photo ou une vidéo de ton mod si tu veux.",ql:"Ta note (sur 5)",qp:"5/5, 4/5…"}
 };
+
+/* ===== AVIS CLIENTS — ajoute tes VRAIS avis ici (un objet par avis). image OU video optionnels. ===== */
+const AVIS=[
+  // { nom:"Johnny M.", note:5, texte:"Super boulot, mod livré rapide et testé !", image:"realisations/benne_14000.webp", video:"" },
+];
+function renderAvis(){
+  const el=document.getElementById('avisList'); if(!el) return;
+  if(!AVIS.length){ el.innerHTML='<div class="avis-empty">⭐ Sois le premier à laisser un avis.<br>Un petit retour + une photo ou vidéo de ton mod, et il apparaîtra ici — ça aide les futurs clients !</div>'; return; }
+  el.innerHTML=AVIS.map(function(a){
+    const n=Math.max(0,Math.min(5,a.note||5)), st='★'.repeat(n)+'☆'.repeat(5-n);
+    const ava=a.photo?('<img src="'+a.photo+'" alt="">'):((a.nom||'?').trim().charAt(0).toUpperCase());
+    let media=''; if(a.video){media='<video class="avis-media" controls src="'+a.video+'"></video>';} else if(a.image){media='<img class="avis-media" src="'+a.image+'" alt="" loading="lazy">';}
+    return '<div class="avis-card"><div class="avis-top"><div class="avis-ava">'+ava+'</div><div><div class="avis-nom">'+(a.nom||'Client')+'</div><div class="avis-stars">'+st+'</div></div></div><p class="avis-txt">'+(a.texte||'')+'</p>'+media+'</div>';
+  }).join('');
+}
+renderAvis();
 function openForm(service){
   document.getElementById('f_service').textContent='Service : '+service;
   const cfg=SERVICES_CFG[service]||{intro:"Parlez-nous de votre projet, on s'occupe du reste.",ql:'',qp:''};
