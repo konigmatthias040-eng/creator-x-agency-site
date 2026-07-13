@@ -175,6 +175,9 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 .avis-txt{color:var(--txt);font-size:14px;line-height:1.55;margin-bottom:6px}
 .avis-media{width:100%;border-radius:12px;border:1px solid var(--line2);margin-top:8px;display:block;max-height:280px;object-fit:cover}
 .avis-empty{grid-column:1/-1;text-align:center;color:var(--mut);font-size:14.5px;line-height:1.75;padding:28px;border:1px dashed var(--line2);border-radius:16px}
+.starpick{display:flex;gap:8px;font-size:32px;cursor:pointer;line-height:1;margin-top:2px}
+.starpick span{color:#33415c;transition:.15s;user-select:none}
+.starpick span.on{color:#ffce54;text-shadow:0 0 12px rgba(255,206,84,.5)}
 </style>
 </head>
 <body>
@@ -317,7 +320,7 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
     </div>
     <div class="avis-grid" id="avisList"></div>
     <div style="text-align:center;margin-top:28px">
-      <button class="cta" onclick="openForm('Avis client')">✍️ Laisser un avis</button>
+      <button class="cta" onclick="openAvis()">✍️ Laisser un avis</button>
     </div>
   </section>
 
@@ -378,6 +381,31 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
   </div>
 </div>
 
+<!-- MODALE AVIS CLIENT -->
+<div class="fov" id="avisModal">
+  <div class="fmodal">
+    <button class="x" onclick="closeAvis()">&times;</button>
+    <div id="avisForm">
+      <h3>Laisser un avis ⭐</h3>
+      <p class="lead">Ta note, ton commentaire, et une photo de ton mod si tu veux. Il sera publié après validation.</p>
+      <div class="ff"><label>Ta note</label><div class="starpick" id="starpick"><span data-n="1">★</span><span data-n="2">★</span><span data-n="3">★</span><span data-n="4">★</span><span data-n="5">★</span></div></div>
+      <div class="frow">
+        <div class="ff"><label>Nom / pseudo *</label><input id="av_nom" placeholder="Ton nom"></div>
+        <div class="ff"><label>Email (non publié)</label><input id="av_email" type="email" placeholder="pour te recontacter"></div>
+      </div>
+      <div class="ff"><label>Ton avis *</label><textarea id="av_texte" placeholder="Ce que tu as pensé du travail…"></textarea></div>
+      <div class="ff"><label>📷 Photo de ton mod (facultatif)</label><input id="av_photo" type="file" accept="image/*"><div id="av_thumb" class="thumbs"></div></div>
+      <button class="fsend" type="button" onclick="envoyerAvis()">Envoyer mon avis</button>
+    </div>
+    <div class="fok" id="avisOk">
+      <div class="ic">✅</div>
+      <h4>Merci pour ton avis !</h4>
+      <p>Il sera affiché sur le site après validation.</p>
+      <button class="fsend" style="max-width:200px;margin:16px auto 0" onclick="closeAvis()">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* Envoi via FormSubmit (rapport structure + photos jointes) -> creatorxagency324@gmail.com
    (ancien envoi Web3Forms, cle publique be7d070b-0e4a-4791-811c-76f3533d7ba7, garde en secours) */
@@ -389,21 +417,58 @@ const SERVICES_CFG={
  'Avis client':{intro:"Merci ! Note-moi, laisse un commentaire, et ajoute une photo ou une vidéo de ton mod si tu veux.",ql:"Ta note (sur 5)",qp:"5/5, 4/5…"}
 };
 
-/* ===== AVIS CLIENTS — ajoute tes VRAIS avis ici (un objet par avis). image OU video optionnels. ===== */
-const AVIS=[
-  // { nom:"Johnny M.", note:5, texte:"Super boulot, mod livré rapide et testé !", image:"realisations/benne_14000.webp", video:"" },
-];
-function renderAvis(){
+/* ===== AVIS CLIENTS (self-service + modération via Firebase) ===== */
+const FB_KEY_AVIS="AIzaSyD0NZVCN6bMVXtm37H8fDnlg7YK3TQW6Q8";
+const FS_AVIS="https://firestore.googleapis.com/v1/projects/volta-gestion/databases/(default)/documents";
+const AVIS=[]; // avis "en dur" éventuels
+let avisNote=0, avisPhoto="";
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function renderAvisList(list){
   const el=document.getElementById('avisList'); if(!el) return;
-  if(!AVIS.length){ el.innerHTML='<div class="avis-empty">⭐ Sois le premier à laisser un avis.<br>Un petit retour + une photo ou vidéo de ton mod, et il apparaîtra ici — ça aide les futurs clients !</div>'; return; }
-  el.innerHTML=AVIS.map(function(a){
+  if(!list.length){ el.innerHTML='<div class="avis-empty">⭐ Sois le premier à laisser un avis.<br>Un petit retour + une photo de ton mod, et il apparaîtra ici — ça aide les futurs clients !</div>'; return; }
+  el.innerHTML=list.map(function(a){
     const n=Math.max(0,Math.min(5,a.note||5)), st='★'.repeat(n)+'☆'.repeat(5-n);
-    const ava=a.photo?('<img src="'+a.photo+'" alt="">'):((a.nom||'?').trim().charAt(0).toUpperCase());
-    let media=''; if(a.video){media='<video class="avis-media" controls src="'+a.video+'"></video>';} else if(a.image){media='<img class="avis-media" src="'+a.image+'" alt="" loading="lazy">';}
-    return '<div class="avis-card"><div class="avis-top"><div class="avis-ava">'+ava+'</div><div><div class="avis-nom">'+(a.nom||'Client')+'</div><div class="avis-stars">'+st+'</div></div></div><p class="avis-txt">'+(a.texte||'')+'</p>'+media+'</div>';
+    const ava=a.photo?('<img src="'+a.photo+'" alt="">'):(esc((a.nom||'?').trim().charAt(0).toUpperCase()));
+    return '<div class="avis-card"><div class="avis-top"><div class="avis-ava">'+ava+'</div><div><div class="avis-nom">'+esc(a.nom||'Client')+'</div><div class="avis-stars">'+st+'</div></div></div><p class="avis-txt">'+esc(a.texte||'')+'</p></div>';
   }).join('');
 }
-renderAvis();
+async function chargerAvis(){
+  let live=[];
+  try{
+    const q={structuredQuery:{from:[{collectionId:"avis_site"}],where:{fieldFilter:{field:{fieldPath:"statut"},op:"EQUAL",value:{stringValue:"publie"}}},limit:60}};
+    const r=await fetch(FS_AVIS+":runQuery?key="+FB_KEY_AVIS,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(q)});
+    const rows=await r.json();
+    live=(rows||[]).filter(function(x){return x.document;}).map(function(x){
+      const f=x.document.fields||{};
+      return { nom:(f.nom&&f.nom.stringValue)||'Client', note:parseInt((f.note&&f.note.integerValue)||'5',10)||5, texte:(f.texte&&f.texte.stringValue)||'', photo:(f.photo&&f.photo.stringValue)||'', date:(f.date&&f.date.stringValue)||'' };
+    });
+    live.sort(function(a,b){return (b.date||'').localeCompare(a.date||'');});
+  }catch(e){ live=[]; }
+  renderAvisList(AVIS.concat(live));
+}
+/* modale avis */
+function openAvis(){ avisNote=0; avisPhoto=""; ['av_nom','av_email','av_texte'].forEach(function(id){document.getElementById(id).value='';}); document.getElementById('av_thumb').innerHTML=''; document.querySelectorAll('#starpick span').forEach(function(s){s.classList.remove('on');}); document.getElementById('avisForm').style.display='block'; document.getElementById('avisOk').style.display='none'; document.getElementById('avisModal').classList.add('open'); }
+function closeAvis(){ document.getElementById('avisModal').classList.remove('open'); }
+document.querySelectorAll('#starpick span').forEach(function(s){ s.addEventListener('click',function(){ avisNote=parseInt(s.dataset.n,10); document.querySelectorAll('#starpick span').forEach(function(x){ x.classList.toggle('on', parseInt(x.dataset.n,10)<=avisNote); }); }); });
+document.getElementById('av_photo').addEventListener('change',async function(){ const f=this.files[0]; if(!f){avisPhoto="";document.getElementById('av_thumb').innerHTML='';return;} try{ const img=await loadImg(f); const sc=Math.min(1,700/Math.max(img.width,img.height)); const cv=document.createElement('canvas'); cv.width=Math.max(1,Math.round(img.width*sc)); cv.height=Math.max(1,Math.round(img.height*sc)); cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height); avisPhoto=cv.toDataURL('image/jpeg',.7); document.getElementById('av_thumb').innerHTML='<img src="'+avisPhoto+'">'; }catch(e){avisPhoto="";} });
+async function envoyerAvis(){
+  const nom=document.getElementById('av_nom').value.trim(), texte=document.getElementById('av_texte').value.trim();
+  if(!nom||!texte){alert('Ton nom et ton avis, au minimum 🙂');return;}
+  if(!avisNote) avisNote=5;
+  const btn=document.querySelector('#avisForm .fsend'); btn.textContent='Envoi…'; btn.disabled=true;
+  const sv=function(v){return {stringValue:String(v==null?'':v)};};
+  try{
+    await fetch(FS_AVIS+"/avis_site?key="+FB_KEY_AVIS,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({fields:{
+      nom:sv(nom), note:{integerValue:String(avisNote)}, texte:sv(texte), photo:sv(avisPhoto),
+      email:sv(document.getElementById('av_email').value.trim()), date:sv(new Date().toISOString()), statut:sv("en_attente")
+    }})});
+    document.getElementById('avisForm').style.display='none'; document.getElementById('avisOk').style.display='block';
+  }catch(e){ alert("Envoi impossible pour le moment, réessaie."); }
+  btn.textContent='Envoyer mon avis'; btn.disabled=false;
+}
+document.getElementById('avisModal').addEventListener('click',function(e){if(e.target.id==='avisModal')closeAvis();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAvis();});
+chargerAvis();
 function openForm(service){
   document.getElementById('f_service').textContent='Service : '+service;
   const cfg=SERVICES_CFG[service]||{intro:"Parlez-nous de votre projet, on s'occupe du reste.",ql:'',qp:''};
