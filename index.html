@@ -45,7 +45,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;font-
 .btn.primary{background:var(--grad);box-shadow:0 8px 24px -6px #4a6bffaa}.btn.primary:hover{transform:translateY(-2px)}
 .btn.ghost{background:rgba(255,255,255,.05);border:1px solid var(--line2);color:#dfe8ff}
 
-.isle{position:absolute;transform:translate(-50%,-50%);width:15%;z-index:3;text-decoration:none;color:inherit;cursor:pointer}
+.isle{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:15%;z-index:3;text-decoration:none;color:inherit;cursor:pointer}
 .ball{display:flex;flex-direction:column;align-items:center;text-align:center}
 .isle img{width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:transform .3s ease,filter .3s ease}
 .isle:hover{z-index:20}
@@ -83,14 +83,49 @@ body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;font-
 @keyframes pulse{0%,100%{box-shadow:0 0 90px -8px #3a72ff66,inset 0 0 60px -18px #8a6cff55}50%{box-shadow:0 0 120px -4px #3a72ff99,inset 0 0 70px -14px #8a6cff77}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes orbfloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 13px))}}
+/* Flottement reduit sur mobile : evite que l'orbe touche les ilots */
+@keyframes orbfloatm{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 6px))}}
+/* Lignes "portrait" masquees sur PC */
+.links-m{display:none}
+
+/* ===== MOBILE : on GARDE la constellation (meme composition que sur PC), en format portrait =====
+   Avant : tout etait empile en colonne (.orb/.isle en position:static) => hero de 2,5 ecrans.
+   Maintenant : orbe au centre + 4 ilots aux coins + lignes => le hero tient sur 1 ecran. */
 @media(max-width:820px){
-  .hero{justify-content:flex-start;padding-top:74px}
-  .scene{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;gap:24px;padding:30px 16px;max-width:420px}
-  .links{display:none}
-  .orb,.isle{position:static;transform:none;width:64%}
-  .orb{order:-1;width:80%;padding:26px;animation:none}
-  .orb .mk{font-size:30px}.orb .wmk{font-size:22px}.orb .sub{font-size:11px;letter-spacing:4px}.orb .tag{font-size:13px}.btn{font-size:13px;padding:11px 16px}
-  .lbl{font-size:15px;margin-top:8px}.pick{font-size:12px;opacity:1}
+  .hero{justify-content:center;padding:60px 10px 40px;min-height:100vh;min-height:100svh}
+  .scene{
+    position:relative;display:block;
+    aspect-ratio:auto;width:100%;max-width:none;margin:0 auto;padding:0;gap:0;
+    height:min(calc(100vh - 120px),620px);
+    height:min(calc(100svh - 120px),620px);
+    min-height:430px;
+  }
+  .links-d{display:none}
+  .links-m{display:block}
+  .links-m line{stroke:url(#lg2)}
+
+  /* Ilots aux 4 coins — positions portrait (--mx/--my).
+     Les tailles dependent de la LARGEUR *et* de la HAUTEUR (vh) : sur un ecran
+     court (ex. 360x640) tout se reduit tout seul, sinon l'orbe touche les ilots. */
+  .isle{position:absolute;left:var(--mx);top:var(--my);transform:translate(-50%,-50%);width:29%}
+  .isle img{width:auto;max-width:100%;height:auto;max-height:15vh;margin:0 auto;display:block}
+  .lbl{font-size:clamp(9px,1.4vh,11px);margin-top:5px;padding:3px 7px;max-width:104px}
+  .pick{display:none}
+
+  /* Orbe centrale, version compacte (doit tenir entre les ilots) */
+  .orb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56%;padding:0;
+    animation:orbfloatm 7s ease-in-out infinite}
+  .orb .medallion{width:min(34vw,17vh,132px);height:min(34vw,17vh,132px);margin:0 auto clamp(6px,1.2vh,10px)}
+  .orb .medallion .motto span{font-size:clamp(11px,1.75vh,13.5px)}
+  .orb .medallion .motto b{font-size:clamp(12.5px,2vh,15.5px)}
+  .orb .mk{font-size:30px}
+  .orb .wmk{font-size:clamp(13px,2.2vh,16.5px);margin-bottom:3px}
+  .orb .sub{font-size:clamp(7px,1.05vh,8px);letter-spacing:1.5px;margin:0 0 clamp(5px,1vh,8px)}
+  .orb .tag{display:none}
+  .orb .btns{margin-top:0}
+  .btn{font-size:clamp(10.5px,1.5vh,12px);padding:clamp(7px,1.1vh,9px) 13px}
+
+  .bottomline{bottom:8px;font-size:10.5px;padding:0 14px}
   .frow{grid-template-columns:1fr}
 }
 
@@ -138,8 +173,24 @@ footer .ct a:hover{border-color:var(--cyan);background:rgba(70,120,255,.1)}
 footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:820px){.nav .links{display:none}.sec{padding:54px 18px}}
-@media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
+/* NB : la regle .hero de base est definie plus bas que le bloc mobile du haut,
+   donc l'override du padding doit se faire ICI (apres), sinon il est ecrase. */
+@media(max-width:820px){
+  .nav .links{display:none}
+  .sec{padding:44px 14px}
+  .hero{padding:60px 10px 40px;min-height:100svh}
+}
+/* On garde une grille 2 colonnes (comme sur PC) au lieu de tout empiler en 1 colonne */
+@media(max-width:520px){
+  .g3,.g4{grid-template-columns:repeat(2,1fr);gap:11px}
+  .card{padding:14px;border-radius:14px}
+  .card .ic{font-size:20px;margin-bottom:6px}
+  .card h3{font-size:13.5px;margin-bottom:5px}
+  .card p{font-size:11.5px;line-height:1.45}
+  .step .n{width:30px;height:30px;font-size:13px;margin-bottom:9px}
+  .sec-h{margin-bottom:24px}
+  .avis-grid{grid-template-columns:1fr}
+}
 
 /* Réalisations — avant / après */
 .realiz{max-width:940px;margin:0 auto 24px;background:var(--surf);border:1px solid var(--line2);border-radius:18px;padding:16px}
@@ -156,7 +207,17 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 .realiz-txt p{color:var(--mut);font-size:14px;line-height:1.55}
 .chip2{display:inline-block;background:rgba(70,120,255,.16);border:1px solid var(--line2);color:#cfe0ff;font-size:12px;padding:3px 10px;border-radius:99px;margin-left:4px}
 .realiz-note{max-width:940px;margin:6px auto 0;text-align:center;color:var(--mut);font-size:13.5px;line-height:1.6}
-@media(max-width:560px){.ba{grid-template-columns:1fr}.ba img,.ba figure.ph .phbox{height:200px}}
+/* Avant/apres : on garde les 2 images COTE A COTE (comme sur PC) — c'est tout l'interet */
+@media(max-width:560px){
+  .ba{grid-template-columns:1fr 1fr;gap:8px}
+  .ba img,.ba figure.ph .phbox{height:124px}
+  .ba figcaption{font-size:10px;padding:5px 5px;line-height:1.3}
+  .ba-tag{font-size:8.5px;padding:3px 7px;top:6px;left:6px}
+  .realiz{padding:11px;border-radius:14px;margin-bottom:14px}
+  .realiz-txt{padding:11px 4px 2px}
+  .realiz-txt h3{font-size:14.5px}
+  .realiz-txt p{font-size:12.5px}
+}
 
 /* Médaillon central : slogan de marque */
 .orb .medallion .motto{position:absolute;inset:0;z-index:1;border-radius:50%;display:grid;place-content:center;text-align:center;gap:8px;padding:0 13%;background:radial-gradient(circle at 50% 42%,#16264a,#0a0f1e 76%);box-shadow:0 0 50px -12px rgba(58,114,255,.5);-webkit-mask-image:radial-gradient(circle,#000 87%,transparent 99%);mask-image:radial-gradient(circle,#000 87%,transparent 99%);font-family:'Space Grotesk',sans-serif}
@@ -198,16 +259,22 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 
 <section class="hero" id="top">
 <div class="scene">
-  <svg class="links" viewBox="0 0 1000 600" preserveAspectRatio="none">
+  <svg class="links links-d" viewBox="0 0 1000 600" preserveAspectRatio="none">
     <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a72ff"/><stop offset="1" stop-color="#8a6cff"/></linearGradient></defs>
     <line x1="500" y1="294" x2="220" y2="168"/><line x1="500" y1="294" x2="800" y2="168"/>
     <line x1="500" y1="294" x2="220" y2="444"/><line x1="500" y1="294" x2="800" y2="444"/>
   </svg>
+  <!-- Lignes version portrait (mobile) : calees sur --mx/--my des ilots -->
+  <svg class="links links-m" viewBox="0 0 375 620" preserveAspectRatio="none">
+    <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a72ff"/><stop offset="1" stop-color="#8a6cff"/></linearGradient></defs>
+    <line x1="188" y1="310" x2="71" y2="81"/><line x1="188" y1="310" x2="304" y2="81"/>
+    <line x1="188" y1="310" x2="71" y2="539"/><line x1="188" y1="310" x2="304" y2="539"/>
+  </svg>
 
-  <a class="isle" href="#" onclick="openForm('Modding & jeux');return false" style="left:22%;top:28%"><div class="ball"><img src="ilots/farming.png" alt=""><span class="lbl">Modding &amp; jeux</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Logiciel sur mesure');return false" style="left:80%;top:28%"><div class="ball"><img src="ilots/logiciel.png" alt=""><span class="lbl">Logiciel sur mesure</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Micro-programme');return false" style="left:22%;top:74%"><div class="ball"><img src="ilots/micro.png" alt=""><span class="lbl">Micro-programme</span><span class="pick">Choisir →</span></div></a>
-  <a class="isle" href="#" onclick="openForm('Enjeux fichiers & logiciels');return false" style="left:80%;top:74%"><div class="ball"><img src="ilots/fichiers.png" alt=""><span class="lbl">Enjeux fichiers &amp; logiciels</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Modding & jeux');return false" style="--x:22%;--y:28%;--mx:19%;--my:13%"><div class="ball"><img src="ilots/farming.png" alt=""><span class="lbl">Modding &amp; jeux</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Logiciel sur mesure');return false" style="--x:80%;--y:28%;--mx:81%;--my:13%"><div class="ball"><img src="ilots/logiciel.png" alt=""><span class="lbl">Logiciel sur mesure</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Micro-programme');return false" style="--x:22%;--y:74%;--mx:19%;--my:87%"><div class="ball"><img src="ilots/micro.png" alt=""><span class="lbl">Micro-programme</span><span class="pick">Choisir →</span></div></a>
+  <a class="isle" href="#" onclick="openForm('Enjeux fichiers & logiciels');return false" style="--x:80%;--y:74%;--mx:81%;--my:87%"><div class="ball"><img src="ilots/fichiers.png" alt=""><span class="lbl">Enjeux fichiers &amp; logiciels</span><span class="pick">Choisir →</span></div></a>
 
   <div class="orb">
     <div class="medallion"><div class="motto">

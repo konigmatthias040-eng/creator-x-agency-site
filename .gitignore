@@ -5,3 +5,6 @@ index-galaxie-backup-*.html
 avis.html
 email-template-emailjs.html
 *.bak
+
+# demo locale — ne jamais publier
+demo/
