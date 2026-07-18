@@ -225,17 +225,22 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
 .orb .medallion .motto b{font-size:clamp(23px,2.7vw,34px);font-weight:700;line-height:1.12;background:linear-gradient(120deg,#ffd479,#e8b84b);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* Avis clients */
-.avis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;max-width:1000px;margin:0 auto}
-.avis-card{background:var(--surf);border:1px solid var(--line2);border-radius:18px;padding:20px;transition:transform .25s,border-color .25s}
-.avis-card:hover{transform:translateY(-4px);border-color:rgba(140,180,255,.4)}
-.avis-top{display:flex;align-items:center;gap:12px;margin-bottom:11px}
-.avis-ava{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#fff;overflow:hidden}
+.avis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:28px;max-width:1060px;margin:8px auto 0;align-items:start}
+.avis-card{position:relative;background:linear-gradient(158deg,rgba(32,48,86,.72),rgba(17,27,52,.72));backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);border:1px solid rgba(150,185,255,.22);border-radius:26px;padding:26px 24px 22px;box-shadow:0 26px 56px -28px #000,0 0 46px -22px rgba(58,114,255,.42);animation:floatbubble 6s ease-in-out infinite;transition:box-shadow .3s,border-color .3s}
+.avis-card::before{content:'\201C';position:absolute;top:4px;right:20px;font-family:'Space Grotesk',sans-serif;font-size:62px;line-height:1;font-weight:700;background:linear-gradient(120deg,#ffd479,#e8b84b);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.55;pointer-events:none}
+.avis-card:hover{border-color:rgba(140,180,255,.5);box-shadow:0 30px 64px -26px #000,0 0 62px -18px rgba(58,114,255,.6)}
+.avis-card:nth-child(3n+2){animation-delay:-2s}
+.avis-card:nth-child(3n+3){animation-delay:-4s}
+@keyframes floatbubble{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(prefers-reduced-motion:reduce){.avis-card{animation:none}}
+.avis-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.avis-ava{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#fff;overflow:hidden;box-shadow:0 0 20px -4px #5a78ff88}
 .avis-ava img{width:100%;height:100%;object-fit:cover}
-.avis-nom{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
+.avis-nom{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px}
 .avis-stars{color:#ffce54;font-size:13px;letter-spacing:2px}
-.avis-txt{color:var(--txt);font-size:14px;line-height:1.55;margin-bottom:6px}
-.avis-media{width:100%;border-radius:12px;border:1px solid var(--line2);margin-top:8px;display:block;max-height:280px;object-fit:cover}
-.avis-empty{grid-column:1/-1;text-align:center;color:var(--mut);font-size:14.5px;line-height:1.75;padding:28px;border:1px dashed var(--line2);border-radius:16px}
+.avis-txt{color:#e9f0ff;font-size:14.5px;line-height:1.6;margin-bottom:4px}
+.avis-media{width:100%;border-radius:14px;border:1px solid var(--line2);margin-top:12px;display:block;max-height:300px;object-fit:cover}
+.avis-empty{grid-column:1/-1;text-align:center;color:var(--mut);font-size:14.5px;line-height:1.75;padding:30px;border:1px dashed var(--line2);border-radius:18px}
 .starpick{display:flex;gap:8px;font-size:32px;cursor:pointer;line-height:1;margin-top:2px}
 .starpick span{color:#33415c;transition:.15s;user-select:none}
 .starpick span.on{color:#ffce54;text-shadow:0 0 12px rgba(255,206,84,.5)}
@@ -314,9 +319,9 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
     </div>
     <div class="grid g4">
       <div class="card scard" onclick="openForm('Modding & jeux')"><span class="ic">🚜</span><h3>Modding &amp; jeux</h3><p>Je répare, modifie ou crée tes mods <strong>Farming Simulator 22/25</strong> — et d'autres jeux / maps sur demande.</p><span class="go">Demander →</span></div>
-      <div class="card scard" onclick="openForm('Logiciel sur mesure')"><span class="ic">🧩</span><h3>Logiciel sur mesure</h3><p>Applications, sites et petits outils (Windows, web) taillés pour votre besoin.</p><span class="go">Demander →</span></div>
-      <div class="card scard" onclick="openForm('Micro-programme')"><span class="ic">⚙️</span><h3>Micro-programme</h3><p>Scripts et automatisations qui font le travail répétitif à votre place.</p><span class="go">Demander →</span></div>
-      <div class="card scard" onclick="openForm('Enjeux fichiers & logiciels')"><span class="ic">🗂️</span><h3>Fichiers &amp; dépannage</h3><p>Récupération, rangement, optimisation et vérification de vos fichiers et outils.</p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Logiciel sur mesure')"><span class="ic">🧩</span><h3>Logiciel sur mesure</h3><p>Une vraie appli, un site ou un outil pensé pour <strong>ton</strong> besoin précis — Windows ou web.<span style="display:block;margin-top:7px">Ex. : appli de gestion (devis, clients, stock), site vitrine comme celui-ci, tableau de bord, calculateur, petite base de données.</span></p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Micro-programme')"><span class="ic">⚙️</span><h3>Micro-programme</h3><p>Un petit programme qui fait une tâche pénible à ta place, en un clic.<span style="display:block;margin-top:7px">Ex. : renommer / trier 500 fichiers d'un coup, convertir images ou vidéos en masse, raccourci qui lance ta config de jeu, overlay ou assistant en jeu, petit bot Discord.</span></p><span class="go">Demander →</span></div>
+      <div class="card scard" onclick="openForm('Enjeux fichiers & logiciels')"><span class="ic">🗂️</span><h3>Fichiers &amp; dépannage</h3><p>Tes fichiers ou ton PC te posent problème ? Je m'en occupe.<span style="display:block;margin-top:7px">Ex. : récupérer des données ou mods perdus, ranger et nettoyer un dossier, réparer un fichier qui plante, vérifier qu'un logiciel est sain, dépanner un PC qui rame.</span></p><span class="go">Demander →</span></div>
     </div>
   </section>
 
@@ -398,7 +403,6 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
   <div class="slo">Moins de papier. Plus de résultats.</div>
   <div class="ct">
     <a href="mailto:creatorxagency324@gmail.com">✉ creatorxagency324@gmail.com</a>
-    <a href="tel:+33677873324">☎ 06 77 87 33 24</a>
     <button class="cta" onclick="openForm('Projet sur mesure')">Démarrer un projet</button>
   </div>
   <div class="legal">Creator x Agency — micro-entreprise · SIRET : à compléter · Devis gratuit sur demande.<br>© 2026 Creator x Agency. Tous droits réservés.</div>
@@ -413,28 +417,32 @@ footer .legal{color:var(--mut);font-size:12.5px;line-height:1.7}
       <p class="lead" id="f_lead">Remplissez ce formulaire, on vous recontacte rapidement.</p>
       <span class="schip" id="f_service">Service</span>
       <form id="realform" action="https://formsubmit.co/creatorxagency324@gmail.com" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_template" value="box">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" id="h_subject" value="Nouvelle demande">
       <input type="hidden" name="_next" id="h_next" value="">
       <input type="hidden" name="Référence" id="h_ref" value="">
       <input type="hidden" name="Service" id="h_service" value="">
       <div class="frow">
-        <div class="ff"><label>Nom / société *</label><input id="f_nom" name="Nom / société" placeholder="Votre nom"></div>
-        <div class="ff"><label>Email *</label><input id="f_email" name="Email" type="email" placeholder="vous@email.com"></div>
+        <div class="ff"><label>Nom / pseudo *</label><input id="f_nom" name="Nom" placeholder="Ton nom ou pseudo"></div>
+        <div class="ff"><label>Email</label><input id="f_email" name="Email" type="email" placeholder="vous@email.com"></div>
       </div>
-      <div class="ff"><label>Téléphone</label><input id="f_tel" name="Téléphone" placeholder="06 …"></div>
+      <div class="frow">
+        <div class="ff"><label>Téléphone</label><input id="f_tel" name="Téléphone" placeholder="06 …"></div>
+        <div class="ff"><label>Discord / Snap / autre</label><input id="f_autre" name="Contact" placeholder="pseudo Discord, Snap…"></div>
+      </div>
+      <p style="font-size:12px;color:var(--mut);margin:-2px 0 13px">Laisse-moi <strong>au moins une</strong> façon de te joindre — email, tél, Discord, Snap… comme tu préfères 🙂</p>
       <div class="ff" id="f_extrawrap" style="display:none"><label id="f_extralabel"></label><input id="f_extra"></div>
       <div class="ff"><label>Décrivez votre besoin *</label><textarea id="f_desc" name="Besoin" placeholder="Ce que vous voulez créer, le contexte, vos attentes…"></textarea></div>
       <div class="frow">
-        <div class="ff"><label>Budget estimé</label><select id="f_budget" name="Budget estimé"><option>À définir</option><option>moins de 30 €</option><option>30 – 80 €</option><option>80 – 200 €</option><option>plus de 200 €</option></select></div>
-        <div class="ff"><label>Délai souhaité</label><select id="f_delai" name="Délai souhaité"><option>Flexible</option><option>Dès que possible</option><option>moins d'1 mois</option><option>1 à 3 mois</option></select></div>
+        <div class="ff"><label>Budget estimé</label><select id="f_budget" name="Budget"><option>À définir</option><option>moins de 30 €</option><option>30 – 80 €</option><option>80 – 200 €</option><option>plus de 200 €</option></select></div>
+        <div class="ff"><label>Délai souhaité</label><select id="f_delai" name="Délai"><option>Flexible</option><option>Dès que possible</option><option>moins d'1 mois</option><option>1 à 3 mois</option></select></div>
       </div>
       <div class="ff"><label>📷 Photos du sujet — mod, capture d'écran, machine… (3 max, facultatif)</label>
         <input id="f_photos" type="file" name="attachment" accept="image/*" multiple>
         <div id="f_thumbs" class="thumbs"></div>
       </div>
-      <textarea name="Brief IA" id="h_brief" style="display:none"></textarea>
+      <textarea name="Brief" id="h_brief" style="display:none"></textarea>
       <button class="fsend" type="button" onclick="sendForm()">Envoyer ma demande</button>
       </form>
     </div>
@@ -495,8 +503,9 @@ function renderAvisList(list){
   if(!list.length){ el.innerHTML='<div class="avis-empty">⭐ Sois le premier à laisser un avis.<br>Un petit retour + une photo de ton mod, et il apparaîtra ici — ça aide les futurs clients !</div>'; return; }
   el.innerHTML=list.map(function(a){
     const n=Math.max(0,Math.min(5,a.note||5)), st='★'.repeat(n)+'☆'.repeat(5-n);
-    const ava=a.photo?('<img src="'+a.photo+'" alt="">'):(esc((a.nom||'?').trim().charAt(0).toUpperCase()));
-    return '<div class="avis-card"><div class="avis-top"><div class="avis-ava">'+ava+'</div><div><div class="avis-nom">'+esc(a.nom||'Client')+'</div><div class="avis-stars">'+st+'</div></div></div><p class="avis-txt">'+esc(a.texte||'')+'</p></div>';
+    const ava=esc((a.nom||'?').trim().charAt(0).toUpperCase());
+    const media=a.photo?('<img class="avis-media" src="'+esc(a.photo)+'" alt="capture du mod" loading="lazy">'):'';
+    return '<div class="avis-card"><div class="avis-top"><div class="avis-ava">'+ava+'</div><div><div class="avis-nom">'+esc(a.nom||'Client')+'</div><div class="avis-stars">'+st+'</div></div></div><p class="avis-txt">'+esc(a.texte||'')+'</p>'+media+'</div>';
   }).join('');
 }
 async function chargerAvis(){
@@ -551,9 +560,10 @@ function closeForm(){document.getElementById('fov').classList.remove('open');}
 function pad2(n){return (n<10?'0':'')+n}
 async function sendForm(){
   const s=document.getElementById('f_service').textContent.replace('Service : ','');
-  const nom=f_nom.value.trim(),email=f_email.value.trim(),tel=f_tel.value.trim(),desc=f_desc.value.trim();
+  const nom=f_nom.value.trim(),email=f_email.value.trim(),tel=f_tel.value.trim(),autre=f_autre.value.trim(),desc=f_desc.value.trim();
   const budget=f_budget.value,delai=f_delai.value;
-  if(!nom||!email){alert('Merci d\'indiquer au moins votre nom et votre email.');return;}
+  if(!nom){alert('Indique au moins ton nom ou pseudo.');return;}
+  if(!email&&!tel&&!autre){alert('Laisse au moins une façon de te contacter (email, tél, Discord, Snap…).');return;}
   if(!desc){alert('Merci de décrire votre besoin.');return;}
   const btn=document.querySelector('#fform .fsend'); btn.textContent='Envoi…'; btn.disabled=true;
   const now=new Date();
@@ -570,7 +580,7 @@ async function sendForm(){
     '=== BRIEF POUR L\'IA — a coller tel quel dans Claude ===\n'
     +'Référence : '+ref+'\n'
     +'Prestation : '+s+(exVal?('\n'+exLabel+' : '+exVal):'')+'\n'
-    +'Client : '+nom+' · '+email+(tel?(' · '+tel):'')+'\n'
+    +'Client : '+nom+(email?(' · '+email):'')+(tel?(' · tél '+tel):'')+(autre?(' · '+autre):'')+'\n'
     +'Budget : '+budget+' · Délai : '+delai+'\n\n'
     +'DEMANDE DU CLIENT :\n'+desc+'\n\n'
     +'CONSIGNES : analyser la demande, lister les fichiers/mods/éléments concernés (photos en pièces jointes de ce mail), proposer un plan d\'action étape par étape, estimer le temps de travail et un prix indicatif, signaler les risques AVANT toute modification.';
@@ -582,7 +592,7 @@ async function sendForm(){
     await fetch("https://firestore.googleapis.com/v1/projects/volta-gestion/databases/(default)/documents/demandes_site?key="+FB_KEY,{
       method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({fields:{
-        ref:sv(ref),service:sv(s),nom:sv(nom),email:sv(email),tel:sv(tel),
+        ref:sv(ref),service:sv(s),nom:sv(nom),email:sv(email),tel:sv(tel),contact:sv(autre),
         besoin:sv(desc),budget:sv(budget),delai:sv(delai),precision:sv(exVal),
         date:sv(now.toISOString()),statut:sv('nouveau')
       }})
